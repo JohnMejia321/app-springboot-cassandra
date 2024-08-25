@@ -16,9 +16,18 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 @EnableCassandraRepositories(
         basePackages = "com.kesypace.cassandra.repositories.prueba",
-        cassandraTemplateRef = "cassandraTemplateFase2"
+        cassandraTemplateRef = "cassandraTemplatePrueba"
 )
 public class CassandraPrueba extends AbstractCassandraConfiguration {
+
+   /* @Value("${cassandra.data.external-port}")
+    private int cassandraPort;
+
+    @Value("${cassandra.data.external-contact-points}")
+    private String contactPoints;
+
+    @Value("${cassandra.data.external-local-datacenter}")
+    private String localDatacenter;*/
 
 
     @Override
@@ -28,8 +37,8 @@ public class CassandraPrueba extends AbstractCassandraConfiguration {
 
     @Bean
     @Primary
-    @Qualifier("sessionFase2")
-    public CqlSession sessionFase2() {
+    @Qualifier("prueba")
+    public CqlSession prueba() {
         return CqlSession.builder()
                 .withKeyspace(getKeyspaceName())
                 .withLocalDatacenter("datacenter1")
@@ -37,9 +46,9 @@ public class CassandraPrueba extends AbstractCassandraConfiguration {
                 .build();
     }
 
-    @Bean("cassandraTemplateFase2")
-    @Qualifier("cassandraTemplateFase2")
-    public CassandraTemplate cassandraTemplateFase2(@Qualifier("sessionFase2") CqlSession sessionFase2) {
-        return new CassandraTemplate(sessionFase2);
+    @Bean("cassandraTemplatePrueba")
+    @Qualifier("cassandraTemplatePrueba")
+    public CassandraTemplate cassandraTemplatePrueba(@Qualifier("prueba") CqlSession prueba) {
+        return new CassandraTemplate(prueba);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 @Configuration
 @EnableCassandraRepositories(
         basePackages = "com.kesypace.cassandra.repositories.prueba1",
-        cassandraTemplateRef = "cassandraTemplateFase5"
+        cassandraTemplateRef = "cassandraTemplatePrueba1"
 )
 public class CassandraPrueba1 extends AbstractCassandraConfiguration {
 
@@ -26,8 +26,8 @@ public class CassandraPrueba1 extends AbstractCassandraConfiguration {
     }
 
     @Bean
-    @Qualifier("sessionFase5")
-    public CqlSessionFactoryBean sessionFase5() {
+    @Qualifier("sessionPrueba1")
+    public CqlSessionFactoryBean sessionPrueba1() {
         CqlSessionFactoryBean session = new CqlSessionFactoryBean();
         session.setContactPoints("localhost");
         session.setPort(9042);
@@ -36,9 +36,9 @@ public class CassandraPrueba1 extends AbstractCassandraConfiguration {
         return session;
     }
 
-    @Bean("cassandraTemplateFase5")
-    @Qualifier("cassandraTemplateFase5")
-    public CassandraTemplate cassandraTemplateFase5(@Qualifier("sessionFase5") CqlSession sessionFase5) {
-        return new CassandraTemplate(sessionFase5);
+    @Bean("cassandraTemplatePrueba1")
+    @Qualifier("cassandraTemplatePrueba1")
+    public CassandraTemplate cassandraTemplatePrueba1(@Qualifier("sessionPrueba1") CqlSession sessionPrueba1) {
+        return new CassandraTemplate(sessionPrueba1);
     }
 }
